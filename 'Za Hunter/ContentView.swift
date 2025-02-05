@@ -18,12 +18,11 @@ struct ContentView: View {
             UserAnnotation()
             ForEach(places) { place in
                 Annotation(place.mapItem.name!, coordinate: place.mapItem.placemark.coordinate) {
-                    Image(systemName: "star.circle")
-                        .resizable()
-                        .foregroundStyle(.red)
-                        .frame(width: 44, height: 44)
-                        .background(.white)
-                        .clipShape(.circle)
+                    if let url = place.mapItem.url {
+                        Link(destination: url, label: {
+                            Image("pizza")
+                        })
+                    }
                 }
             }
         }
@@ -31,7 +30,7 @@ struct ContentView: View {
             mapRegion = context.region
             performSearch(item: "Pizza")
         }
-
+        
     }
     
     func performSearch(item: String) {
