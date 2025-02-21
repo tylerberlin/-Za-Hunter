@@ -14,19 +14,21 @@ struct ContentView: View {
     @State private var mapRegion = MKCoordinateRegion()
     @StateObject var locationManager = LocationManager()
     var body: some View {
-        Map(position: $startPosition) {
-            UserAnnotation()
-            ForEach(places) { place in
-                Annotation(place.mapItem.name!, coordinate: place.mapItem.placemark.coordinate) {
-                    NavigationLink(destination: LocationDetailsView(mapItem: place.mapItem)) {
-                        Image("pizza")
+        NavigationView {
+            Map(position: $startPosition) {
+                UserAnnotation()
+                ForEach(places) { place in
+                    Annotation(place.mapItem.name!, coordinate: place.mapItem.placemark.coordinate) {
+                        NavigationLink(destination: LocationDetailsView(mapItem: place.mapItem)) {
+                            Image("pizza")
+                        }
                     }
                 }
             }
-        }
-        .onMapCameraChange { context in
-            mapRegion = context.region
-            performSearch(item: "Pizza")
+            .onMapCameraChange { context in
+                mapRegion = context.region
+                performSearch(item: "Pizza")
+            }
         }
         
     }
