@@ -25,6 +25,8 @@ struct ContentView: View {
                     }
                 }
             }
+            .navigationBarTitle("'Za Hunter", displayMode: .inline)
+            .toolbarBackground(.hidden, for: .navigationBar)
             .onMapCameraChange { context in
                 mapRegion = context.region
                 performSearch(item: "Pizza")
